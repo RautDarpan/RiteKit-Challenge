@@ -1,6 +1,7 @@
 package com.raut.ritetag.ui.influencers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,12 +15,13 @@ import com.raut.ritetag.RiteKitApplication;
 import com.raut.ritetag.core.api.APIInteface;
 import com.raut.ritetag.core.api.response.InfluencersResponse;
 import com.raut.ritetag.core.api.response.InflunencerResponseData;
-import com.raut.ritetag.core.bus.events.SelectedTag;
+import com.raut.ritetag.core.api.response.Tag;
 import com.raut.ritetag.ui.influencers.adapter.InfluencersListAdapter;
 import com.raut.ritetag.ui.influencers.core.presenter.InfluencersListPresenterImpl;
 import com.raut.ritetag.ui.influencers.core.view.IInfluencersListView;
 import com.raut.ritetag.ui.influencers.dagger.component.DaggerInfluencersListComponent;
 import com.raut.ritetag.ui.influencers.dagger.module.InfluencersListModule;
+import com.raut.ritetag.utils.AppConstants;
 
 import java.util.List;
 
@@ -52,8 +54,13 @@ public class InfluencersListActivity extends AppCompatActivity implements IInflu
         setContentView(R.layout.activity_influerncers);
         ButterKnife.bind(this);
         context = this;
+        Intent intent = getIntent();
+        Tag tag = (Tag) intent.getSerializableExtra(AppConstants.TAG);
         initaliseDagger();
-        registerForClickEvent();
+        if (tag != null) {
+            influencersListPresenter.getInfluerncers(tag.getTag());
+            lblTag.setText(tag.getTag());
+        }
         influencersListPresenter.onLoad();
     }
 
@@ -82,7 +89,6 @@ public class InfluencersListActivity extends AppCompatActivity implements IInflu
 
     @Override
     public void onLoad() {
-        influencersListPresenter.onCreate();
     }
 
     @Override
@@ -92,12 +98,12 @@ public class InfluencersListActivity extends AppCompatActivity implements IInflu
                 .subscribeOn(Schedulers.io())
                 .subscribeWith(new DisposableObserver<InfluencersResponse>() {
                     @Override
-                    public void onNext(InfluencersResponse trendingResponseData) {
-                        if (trendingResponseData != null) {
-                            if (trendingResponseData.isResult()) {
-                                influencersListPresenter.onLoadTagInfluencer(trendingResponseData.getData());
+                    public void onNext(InfluencersResponse influencersResponse) {
+                        if (influencersResponse != null) {
+                            if (influencersResponse.isResult()) {
+                                influencersListPresenter.onLoadTagInfluencer(influencersResponse.getData());
                             } else {
-                                influencersListPresenter.onError(trendingResponseData.getMessage());
+                                influencersListPresenter.onError(influencersResponse.getMessage());
                             }
                         } else {
                             influencersListPresenter.onError("Please try again later");
@@ -107,29 +113,6 @@ public class InfluencersListActivity extends AppCompatActivity implements IInflu
                     @Override
                     public void onError(Throwable e) {
                         influencersListPresenter.onError("Please try again later");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                }));
-    }
-
-    private void registerForClickEvent() {
-        influencersListPresenter.addDisposableObserver(RiteKitApplication.bus().toObservable()
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(new DisposableObserver<Object>() {
-                    @Override
-                    public void onNext(Object o) {
-                        if (o instanceof SelectedTag) {
-                            influencersListPresenter.getInfluerncers(((SelectedTag) o).tag.getTag());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        influencersListPresenter.onError(e.getMessage() + " ");
                     }
 
                     @Override

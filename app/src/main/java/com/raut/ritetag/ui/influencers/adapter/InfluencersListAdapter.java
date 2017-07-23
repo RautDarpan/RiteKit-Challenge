@@ -42,8 +42,8 @@ public class InfluencersListAdapter extends RecyclerView.Adapter<InfluencersList
     public void onBindViewHolder(ContactViewHolder holder, int position) {
         InflunencerResponseData influnencerResponseData = influnencerResponseDatas.get(position);
         if (influnencerResponseData.getDate() != null) {
-            holder.lblData.setText(influnencerResponseData.getDate());
-            holder.lblData.setText("Influencer Data : \n " + "Retweets : " + influnencerResponseData.getRetweets() + "\n" + "Tweets : " + influnencerResponseData.getTweets());
+            holder.lbldate.setText(influnencerResponseData.getDate());
+            holder.lblData.setText("Influencer Data : \n" + "Retweets : " + influnencerResponseData.getRetweets() + "\n" + "Tweets : " + influnencerResponseData.getTweets());
         }
     }
 

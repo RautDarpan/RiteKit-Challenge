@@ -6,6 +6,7 @@ package com.raut.ritetag.utils;
 
 public class AppConstants {
 
+    public static final String TAG = "tag";
     public static String BASE_URL = "https://private-anon-ed1798137c-ritekit.apiary-mock.com/";
 
     public static final int LOGIN_INITIALIZED = 0;

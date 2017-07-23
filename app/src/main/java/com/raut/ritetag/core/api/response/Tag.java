@@ -3,95 +3,97 @@ package com.raut.ritetag.core.api.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Tag {
+import java.io.Serializable;
 
-@SerializedName("tag")
-@Expose
-private String tag;
-@SerializedName("tweets")
-@Expose
-private int tweets;
-@SerializedName("retweets")
-@Expose
-private int retweets;
-@SerializedName("exposure")
-@Expose
-private int exposure;
-@SerializedName("links")
-@Expose
-private float links;
-@SerializedName("photos")
-@Expose
-private float photos;
-@SerializedName("mentions")
-@Expose
-private float mentions;
-@SerializedName("color")
-@Expose
-private int color;
+public class Tag implements Serializable{
 
-public String getTag() {
-return tag;
-}
+    @SerializedName("tag")
+    @Expose
+    private String tag;
+    @SerializedName("tweets")
+    @Expose
+    private int tweets;
+    @SerializedName("retweets")
+    @Expose
+    private int retweets;
+    @SerializedName("exposure")
+    @Expose
+    private int exposure;
+    @SerializedName("links")
+    @Expose
+    private float links;
+    @SerializedName("photos")
+    @Expose
+    private float photos;
+    @SerializedName("mentions")
+    @Expose
+    private float mentions;
+    @SerializedName("color")
+    @Expose
+    private int color;
 
-public void setTag(String tag) {
-this.tag = tag;
-}
+    public String getTag() {
+        return tag;
+    }
 
-public int getTweets() {
-return tweets;
-}
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
-public void setTweets(int tweets) {
-this.tweets = tweets;
-}
+    public int getTweets() {
+        return tweets;
+    }
 
-public int getRetweets() {
-return retweets;
-}
+    public void setTweets(int tweets) {
+        this.tweets = tweets;
+    }
 
-public void setRetweets(int retweets) {
-this.retweets = retweets;
-}
+    public int getRetweets() {
+        return retweets;
+    }
 
-public int getExposure() {
-return exposure;
-}
+    public void setRetweets(int retweets) {
+        this.retweets = retweets;
+    }
 
-public void setExposure(int exposure) {
-this.exposure = exposure;
-}
+    public int getExposure() {
+        return exposure;
+    }
 
-public float getLinks() {
-return links;
-}
+    public void setExposure(int exposure) {
+        this.exposure = exposure;
+    }
 
-public void setLinks(float links) {
-this.links = links;
-}
+    public float getLinks() {
+        return links;
+    }
 
-public float getPhotos() {
-return photos;
-}
+    public void setLinks(float links) {
+        this.links = links;
+    }
 
-public void setPhotos(float photos) {
-this.photos = photos;
-}
+    public float getPhotos() {
+        return photos;
+    }
 
-public float getMentions() {
-return mentions;
-}
+    public void setPhotos(float photos) {
+        this.photos = photos;
+    }
 
-public void setMentions(float mentions) {
-this.mentions = mentions;
-}
+    public float getMentions() {
+        return mentions;
+    }
 
-public int getColor() {
-return color;
-}
+    public void setMentions(float mentions) {
+        this.mentions = mentions;
+    }
 
-public void setColor(int color) {
-this.color = color;
-}
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
 
 }

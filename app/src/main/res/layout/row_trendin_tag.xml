@@ -15,6 +15,7 @@
             android:id="@+id/layout_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
@@ -36,9 +37,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="end"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="end"
             android:orientation="horizontal">
 
             <TextView

@@ -14,14 +14,15 @@ import com.raut.ritetag.RiteKitApplication;
 import com.raut.ritetag.core.api.APIInteface;
 import com.raut.ritetag.core.api.response.Tag;
 import com.raut.ritetag.core.api.response.TrendingResponseData;
-import com.raut.ritetag.core.bus.events.SelectedTag;
 import com.raut.ritetag.ui.influencers.InfluencersListActivity;
 import com.raut.ritetag.ui.trending.adapter.TrendingListAdapter;
 import com.raut.ritetag.ui.trending.core.presenter.TrendsingListPresenterImpl;
 import com.raut.ritetag.ui.trending.core.view.ITrendsingListView;
 import com.raut.ritetag.ui.trending.dagger.component.DaggerTrendingListComponent;
 import com.raut.ritetag.ui.trending.dagger.module.TrendingListModule;
+import com.raut.ritetag.utils.AppConstants;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -139,7 +140,7 @@ public class TrendingListActivity extends AppCompatActivity implements ITrendsin
     @Override
     public void onTagClick(int position, Tag tag) {
         Intent influencer = new Intent(context, InfluencersListActivity.class);
+        influencer.putExtra(AppConstants.TAG, (Serializable) tag);
         startActivity(influencer);
-        RiteKitApplication.bus().send(new SelectedTag(tag));
     }
 }
